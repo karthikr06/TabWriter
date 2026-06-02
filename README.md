@@ -1,3 +1,6 @@
+<div align="center">
+  <img src="/TabWriter/Assets/icon.png" alt="TabWriter Text Editor" width="128"/>
+</div>
 # TabWriter Text Editor
 
 TabWriter is a lightweight, modern, and fast text editor built from the ground up for Windows 11. Designed as a clean, distraction-free alternative to traditional text editors, TabWriter introduces a native tabbed interface to manage multiple text documents seamlessly within a single window.
