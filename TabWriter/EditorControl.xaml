@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="TabWriter.EditorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TabWriter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    Loaded="EditorControl_Loaded"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <Grid Background="#2A2A2A">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="15" />
+        </Grid.RowDefinitions>  
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#1F1F1F">
+            <!-- Menu Bar enclosed in Stack panel for save button-->
+            <!-- Menu Bar for the top bar -->
+            <MenuBar 
+                MinHeight="10" MaxHeight="34"  VerticalAlignment="Top" Margin="0,0,0,0" Background="Transparent"
+                AllowFocusOnInteraction="False">
+                
+                <!-- FILE Button -->
+                <MenuBarItem Title="File">
+                    
+                    <MenuFlyoutItem Text="New Tab" Click="NewButtonClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="T" />
+                            <KeyboardAccelerator Modifiers="Control" Key="N" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    
+                    <MenuFlyoutItem Text="Open" Click="OpenButtonClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="O" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem Text="Save" Click="SaveButtonClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="S" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                    
+                    <MenuFlyoutItem Text="Save As" Click="SaveAsButtonClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control,Shift" Key="S" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem Text="Quick Save" Click="QuickSaveButtonClick"
+                                    ToolTipService.ToolTip="Saves the existing file with a timestamp if the file is already saved">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Key="F12" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+                    
+                    <MenuFlyoutItem Text="Close Tab" Click="CloseTabButtonClick">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="W" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem Text="Exit" Click="ExitButtonClick" KeyboardAcceleratorTextOverride="Alt+F4"/>
+
+                </MenuBarItem>
+    
+                <!-- Edit Button -->
+                <MenuBarItem Title="Edit">
+                    <MenuFlyoutItem x:Name="MenuCut" Text="Cut" Click="CutFunction" KeyboardAcceleratorTextOverride="Ctrl+X">
+
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="MenuCopy" Text="Copy" Click="CopyFunction" KeyboardAcceleratorTextOverride="Ctrl+C">
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="MenuPaste" Text="Paste" Click="PasteFunction" KeyboardAcceleratorTextOverride="Ctrl+V">
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+
+                    <MenuFlyoutItem x:Name="MenuFind" Text="Find" Click="FindFunction">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="F" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="MenuFindReplace" Text="Find &amp; Replace" Click="FindReplaceFunction">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="H" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="Font &amp; Preferences" Click="EditorSettings" >
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control,Shift"  Key="F" />
+                        </MenuFlyoutItem.KeyboardAccelerators>
+                    </MenuFlyoutItem>
+                </MenuBarItem>
+
+                <!-- Help Button-->
+                <MenuBarItem Title="Help">
+                    <!-- <MenuFlyoutItem Text="Provide Feedback" /> -->
+                    <MenuFlyoutItem Text="About" Click="AboutWidgetEnable" />
+                </MenuBarItem>
+            </MenuBar>
+
+            <Button Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Margin="0,3,0,0"
+            Click="SaveButtonClick" ToolTipService.ToolTip="Save" Width="Auto">
+                <FontIcon Glyph="&#xE74E;" FontSize="16" />
+            </Button>
+
+        </StackPanel>
+        <TextBox     
+            x:Name="MainTextBox"
+            TextChanged="MainTextBox_TextChanged"
+            IsSpellCheckEnabled="False"
+            SelectionChanged="MainTextBox_SelectionChanged"
+            PreviewKeyDown="PreviewKeyDownFunction"
+            SelectionHighlightColorWhenNotFocused="{ThemeResource TextControlSelectionHighlightColor}"
+            
+            FontFamily="Calibri"
+            Padding="10,10,15,10"
+            AcceptsReturn="True" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch" 
+            PlaceholderText="Start typing..."
+            Grid.Row="1"
+            Background="Transparent"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollMode="Enabled"
+            BorderThickness="0">
+
+            <TextBox.Resources>
+                <SolidColorBrush x:Key="TextControlBackground" Color="Transparent" />
+                <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="Transparent" />
+                <!--SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#2D2D2D" / -->
+                <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="Transparent" />
+                <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="Transparent" />
+                <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="Transparent" />
+            </TextBox.Resources>
+        </TextBox>
+
+        <!-- Find and Replace -->
+        <Grid x:Name="SearchWidget"
+              Grid.Row="1"
+              Visibility="Collapsed"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              Margin="0,40,20,0"
+              Padding="12"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+              BorderThickness="1"
+              CornerRadius="8"
+              MinWidth="250">
+            <StackPanel Spacing="8">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="ReplaceOption" 
+                          Grid.Column="0" 
+                          Content="Replace" 
+                          Click="ReplaceButtonClicked" 
+                          HorizontalAlignment="Left" 
+                          Background="Transparent"
+                          BorderThickness="0"
+                          VerticalAlignment="Center"/>
+
+                    <Button Grid.Column="1" 
+                            Click="CloseSearch_Click" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            ToolTipService.ToolTip="Cancel"
+                            BorderThickness="0"
+                            Padding="8">
+                        
+                        <FontIcon Glyph="&#xE711;" FontSize="16"/>
+                    </Button>
+                </Grid>
+
+                <TextBox x:Name="FindBox" PlaceholderText="Find..." PreviewKeyDown="PreviewKeyDownFunction"/>
+                <TextBox x:Name="ReplaceBox" PlaceholderText="Replace with..." Visibility="Collapsed" PreviewKeyDown="PreviewKeyDownFunction"/>
+                
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" x:Name="FindButtons" Visibility="Collapsed" Spacing="4"
+                                Margin="0">
+                        <Button
+                            x:Name="FindUPButton" 
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ToolTipService.ToolTip="Find Previous"
+                            Click="FindPrev_Click">
+                            <FontIcon Glyph="&#xE74A;" FontSize="12" />
+                        </Button>
+
+                        <Button 
+                        x:Name="FindDownButton" 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTipService.ToolTip="Find Next"
+                        Click="FindNext_Click" >
+                            <FontIcon Glyph="&#xE74B;" FontSize="12" />
+                        </Button>
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" 
+                                Visibility="Collapsed"  x:Name="ReplaceButton" 
+                                Spacing="4">
+                        <Button
+                        Content="Replace" 
+                        Click="Replace_Click" />
+                        <Button
+                        Content="Replace All" 
+                        Click="ReplaceAll_Click" />
+                    
+                    </StackPanel>
+
+                </Grid>
+                
+            </StackPanel>
+
+            <!-- Popup for not found alert -->
+            <!-- But I am using it for Find and Replace also-->
+            <!-- Make this better in future versions -->
+            <Popup x:Name="NotFoundPopUp" IsOpen="False" IsLightDismissEnabled="True">
+                <Border Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            Padding="12"
+            Margin="20">
+                    <Border.Shadow>
+                        <ThemeShadow />
+                    </Border.Shadow>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Not Found" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+        </Grid>
+        
+                                                        
+        <StackPanel 
+            Grid.Row="2" 
+            Grid.ColumnSpan="3" 
+            Background="#1F1F1F">
+        </StackPanel>
+        
+        
+    </Grid>
+</UserControl>

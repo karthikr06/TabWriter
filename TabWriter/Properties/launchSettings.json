@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TabWriter (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TabWriter (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

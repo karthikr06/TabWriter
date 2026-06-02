@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="TabWriter.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TabWriter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="TabWriter"
+    xmlns:winex="using:WinUIEx">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Background="Transparent">
+        <TabView x:Name="MainTabView" 
+                 SelectionChanged="MainTabView_SelectionChanged"
+         Grid.Row="0" 
+         VerticalAlignment="Stretch"
+         AddTabButtonClick="MainTabView_AddTabButtonClick"
+         BorderThickness="1"
+         BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+         TabCloseRequested="MainTabView_TabCloseRequested">
+
+            <TabView.Resources>
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="#141414" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="Transparent" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="#3F3F3F" />
+                <SolidColorBrush x:Key="TabViewItemHeaderBorderBrush" Color="White" />
+                <Thickness x:Key="TabViewItemHeaderBorderThickness">1,1,1,0</Thickness>
+            </TabView.Resources>
+
+            <TabView.TabStripFooter>
+                <Grid x:Name="DragRegion" Background="Transparent"
+                      MinWidth="180" HorizontalAlignment="Stretch" />
+            </TabView.TabStripFooter>
+
+        </TabView>
+        <!-- Editor section ends here. Next is collapsed Settings and About ME Sections -->
+        <!-- Settings Widget -->
+        <Grid x:Name="SettingsWidget" Visibility="Collapsed">
+            <Grid Background="{ThemeResource SolidBackgroundFillColorBaseBrush}" Opacity="0.7" />
+            <Border Width="300" 
+                Height="400"
+                Background="{ThemeResource SolidBackgroundFillColorQuarternary}"
+                BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="24">
+
+                <Border.Shadow>
+                    <ThemeShadow />
+                </Border.Shadow>
+                <Grid>
+                   
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Editor Settings" 
+                               FontSize="20" FontWeight="SemiBold" 
+                               VerticalAlignment="Center" 
+                               Foreground="White"
+                               />
+
+                    <Button Click="CloseSettings_Click" 
+                        HorizontalAlignment="Right" 
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        Padding="8"
+                        Margin="0,-8,-8,0">
+                        <SymbolIcon Symbol="Cancel" />
+                    </Button>
+
+                    <StackPanel Grid.Row="1" Margin="0,24,0,0" Spacing="16">
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <SymbolIcon Symbol="Font" />
+                            <TextBlock Text="Editor Font Size:" VerticalAlignment="Center" Width="120" />
+                            
+                            
+                            <ComboBox x:Name="FontSizeBox"
+                                  IsEditable="False" 
+                                  ItemsSource="{x:Bind FontSizes}" 
+                                  TextSubmitted="FontSizeBox_TextSubmitted"
+                                  SelectionChanged="FontSizeBox_SelectionChanged"/>
+
+                            
+                        </StackPanel>
+                        <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Width="150" Margin="0,8"/>
+                        <TextBlock Text="More options coming soon!" Foreground="White" HorizontalAlignment="Center" />
+
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+        </Grid>
+
+        <!-- ABOUT Widget to display some details about the app -->
+        <Grid x:Name="AboutWidget" Visibility="Collapsed">
+
+            <Grid Background="{ThemeResource SolidBackgroundFillColorBaseBrush}" Opacity="0.7" />
+
+            <Border Width="300" 
+                Height="400"
+                Background="{ThemeResource SolidBackgroundFillColorQuarternary}"
+                BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="24">
+
+                <Border.Shadow>
+                    <ThemeShadow />
+                </Border.Shadow>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="About" 
+                       Style="{StaticResource SubtitleTextBlockStyle}" 
+                       VerticalAlignment="Center" />
+
+                    <Button Click="CloseAbout_Click" HorizontalAlignment="Right" 
+                            Background="Transparent" BorderThickness="0" Padding="8" Margin="0,0,0,0">
+                        <SymbolIcon Symbol="Cancel" />
+                    </Button>
+
+                    <StackPanel Grid.Row="1" Margin="0,40,0,0" Spacing="24" HorizontalAlignment="Center">
+
+                        <StackPanel Spacing="4" HorizontalAlignment="Center">
+                            <TextBlock Text="TabWriter" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Version 1.0.0" Style="{StaticResource CaptionTextBlockStyle}" 
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Width="150" Margin="0,8"/>
+
+                        <StackPanel Spacing="12">
+                            <!-- Created by Karthik section -->
+                            <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="Created by" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <HyperlinkButton Content="Karthik" NavigateUri="https://www.linkedin.com/in/karthik-r-0b346236a/" 
+                                                 Padding="0" VerticalAlignment="Center"
+                                                 ToolTipService.ToolTip="View LinkedIn Page"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+                                <TextBlock Text="Icon by" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <HyperlinkButton Content="Freepik" NavigateUri="https://www.flaticon.com/authors/freepik" 
+                                                 Padding="0" VerticalAlignment="Center"
+                                                 ToolTipService.ToolTip="Visit Website"/>
+                                <TextBlock Text="on Flaticon" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+    
+</Window>
