@@ -25,7 +25,7 @@ Microsoft Store Link coming soon!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.
 
 ## Acknowledgements
 * Application icon designed by [Freepik](https://www.flaticon.com/authors/freepik) - flaticon
