@@ -6,7 +6,8 @@
 
 TabWriter is a lightweight, modern, and fast text editor built from the ground up for Windows 11. Designed as a clean, distraction-free alternative to traditional text editors, TabWriter introduces a native tabbed interface to manage multiple text documents seamlessly within a single window.
 
-Microsoft Store Link coming soon!
+[![Get it from the Microsoft Store](https://get.microsoft.com/images/en-us%20dark.svg)](https://apps.microsoft.com/detail/9P4DZL11WHV5)
+
 
 ## Key Features
 
