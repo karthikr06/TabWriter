@@ -14,7 +14,6 @@ TabWriter is a lightweight, modern, and fast text editor built from the ground u
 *   **Native Multi-Tab Interface:** Manage multiple text files smoothly inside a single, unified window.
 *   **Modern Windows 11 Design:** Built using **WinUI 3** and the **Windows App SDK** to integrate with the native desktop environment, complete with a dark theme.
 *   **Quick Save Backups:** Instantly generate on-demand, timestamped backups of the active text file.
-*   **Enhanced Windowing:** Leverages **WinUIEx** for advanced, desktop window management.
 *   **Private & Secure:** Operates completely offline without collecting any user telemetry or personal data.
 
 ## Tech Stack
